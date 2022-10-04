@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homepage</title>
+  </head>
+
+  <body>
+    <h2>ALL RECORDS</h2>
+    <table border="4">
+      <tr>
+        <th>SN</th>
+        <th>Forename</th>
+        <th>Surname</th>
+        <th>Middle_name</th>
+        <th>Phone_number</th>
+        <th>Gender</th>
+        <th>Action</th>
+      </tr>
+
+      {% for telephone in record %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ telephone.forename }}</td>
+        <td>{{ telephone.surname }}</td>
+        <td>{{ telephone.middle_name }}</td>
+        <td>{{ telephone.phone_number }}</td>
+        <td>{{ telephone.gender }}</td>
+        <td>
+          <a
+            href="{% url 'cancel_record' telephone.id %}"
+            onclick="return confirm('Make sure you confirm this')"
+            >cancel</a
+          >
+          -
+          <a href="{% url 'alter_record' telephone.id %}">alter</a>
+        </td>
+      </tr>
+
+      {% endfor %}
+    </table>
+
+    <h4><a href="{% url 'add' %}">Click to add</a></h4>
+
+    {% if messages %} {% for message in messages %}
+    <h2>{{ message }}</h2>
+    {% endfor %} {% endif %}
+  </body>
+</html>
